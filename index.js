@@ -78,6 +78,11 @@
 	function showUserList(){
 		menuElement.innerHTML = ''
 		if (!menuElement.classList.contains('hide')) {
+			if(userList.length < 6) {
+				menuElement.style.position = "fixed"
+			} else {
+				menuElement.style.position = "absolute"
+			}
 			for(let i=0; i<userList.length; i++) {
 				// console.log('ok')
 				const menuListElement = document.createElement('div')
@@ -163,6 +168,7 @@
 			for(let i=0; i<data.length; i++) {
 				userList.push(data[i].user)
 			}
+
 		}
 		return userList
 	}
