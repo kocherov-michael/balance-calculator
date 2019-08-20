@@ -98,6 +98,7 @@ input, button {
 
 .main {
 	padding-top: 62px;
+	margin-bottom: 200px;
 }
 
 .main__string {
@@ -184,7 +185,7 @@ input, button {
 	display: block;
 	content: "+";
 	text-align: center;
-	line-height: 0.9;
+	/*line-height: 0.9;*/
 	opacity: 0.5;
 	color: #67CA3C;
 	font-size: 30px;
@@ -194,7 +195,7 @@ input, button {
 .checkbox__new-input-minus:after {
 	content: "-";
 	color: #e74c3c;
-	line-height: 0.8;
+	/*line-height: 0.8;*/
 }
 
 .checkbox__input-plus:checked + .checkbox__new-input-plus,
