@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Balance calculator</title>
+	<link rel="stylesheet" href="normalize.css">
 	<link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&amp;subset=cyrillic-ext" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic-ext" rel="stylesheet">
 </head>
 <body>
 	<header class="header">
@@ -21,19 +22,9 @@
 	<div class="menu hide" data-menu>
 	</div>
 	<main class="main" data-operations-list>
-		<div class="main__string main__string_color_minus" data-string>
-			<div class="main__string-item" data-value>345</div>
-			<div class="main__string-item">
-				<span data-percent>7</span>
-				<span>%</span>
-			</div>
-		</div>
-		<div class="main__string main__string_color_plus ">
-			<div class="main__string-item">345</div>
-			<div class="main__string-item"></div>
-		</div>
 	</main>
-	<footer class="footer">
+	<footer class="footer" data-footer>
+		<div class="footer__info hide" data-footer-info></div>
 		<div class="footer__form">
 			<form class="form">
 				<div class="form__input">

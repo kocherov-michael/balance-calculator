@@ -7,6 +7,8 @@
 	const inputNewUserElement = document.querySelector("[data-input-new-user]")
 	const loggedUserNameElement = document.querySelector("[data-logged-user-name]")
 	const menuElement = document.querySelector("[data-menu]")
+	const footerElement = document.querySelector("[data-footer]")
+	const footerInfoElement = document.querySelector("[data-footer-info]")
 	const inputSymbolElement = document.querySelectorAll("[data-input-symbol]")
 	const inputPercentElement = document.querySelectorAll("[data-input-percent]")
 	const totalElement = document.querySelector("[data-total]")
@@ -71,41 +73,15 @@
 				}
 			}
 		}
+		const info = `Введено: ${inputValues.symbol}${inputValues.weight}`
+		console.log(info)
+		footerInfoElement.innerHTML = info
+		footerInfoElement.classList.remove('hide')
 		inputWeightElement.value = ''
 		inputWeightElement.focus()
 	})
 
-	function showUserList(){
-		menuElement.innerHTML = ''
-		if (!menuElement.classList.contains('hide')) {
-			if(userList.length < 6) {
-				menuElement.style.position = "fixed"
-			} else {
-				menuElement.style.position = "absolute"
-			}
-			for(let i=0; i<userList.length; i++) {
-				// console.log('ok')
-				const menuListElement = document.createElement('div')
-				menuListElement.classList.add('menu__item')
-				menuListElement.innerHTML = userList[i]
-				menuListElement.setAttribute('data-user', userList[i])
-				menuElement.append(menuListElement)
-				inputNewUserElement.classList.remove('hide')
-				addUserButtonElement.classList.remove('hide')
-				// loggedUserNameElement.innerHTML = loggedUser
-				loggedUserNameElement.classList.add('hide')
-
-				menuListElement.addEventListener('click', function (event) {
-					loggedUser = this.getAttribute('data-user')
-					localStorage.setItem('bellaPlusLoggedUser', loggedUser);
-					menuElement.classList.add('hide')
-					operationsArray.length = 0
-					showLoggedUserName(loggedUser)
-					renderFromDB ()
-				})
-			}
-		}
-	}
+	
 	menuButtonElement.addEventListener('click', (event) => {
 		event.preventDefault()
 		event.stopPropagation()
@@ -114,8 +90,145 @@
 		addUser()
 		if(menuElement.classList.contains('hide')) {
 			showLoggedUserName(loggedUser)
+			operationsListElement.classList.remove('hide')
+			footerElement.classList.remove('hide')
 		}
 	})
+
+	footerElement.addEventListener('click', () => {
+		inputWeightElement.focus()
+	})
+
+	function showUserList(){
+		const userList = getUserList()
+		menuElement.innerHTML = ''
+		operationsListElement.classList.add('hide')
+		footerElement.classList.add('hide')
+
+		if (!menuElement.classList.contains('hide')) {
+			for(let i=0; i<userList.length; i++) {
+				const menuListElement = document.createElement('div')
+				menuListElement.classList.add('menu__item')
+				menuListElement.setAttribute('data-user', userList[i])
+				menuElement.append(menuListElement)
+
+				const menuListTextElement = document.createElement('div')
+				menuListTextElement.classList.add('menu__item-text')
+				menuListTextElement.innerHTML = userList[i]
+				menuListElement.append(menuListTextElement)
+
+				const menuListButtonWrapperElement = document.createElement('div')
+				menuListButtonWrapperElement.classList.add('menu__item-button-wrapper')
+				menuListElement.append(menuListButtonWrapperElement)
+
+				const menuListButtonElement = document.createElement('button')
+				menuListButtonElement.classList.add('menu__item-button')
+				menuListButtonElement.innerHTML = 'править'
+				menuListButtonWrapperElement.append(menuListButtonElement)
+
+				inputNewUserElement.classList.remove('hide')
+				addUserButtonElement.classList.remove('hide')
+				//  // loggedUserNameElement.innerHTML = loggedUser
+				loggedUserNameElement.classList.add('hide')
+
+				menuListElement.addEventListener('click', showUserOperations)
+
+				menuListButtonElement.addEventListener('click', function showInputEditUserName(event) {
+					event.preventDefault()
+					event.stopPropagation()
+					menuListTextElement.innerHTML = ''
+					const menuListInputElement = document.createElement('input')
+					menuListInputElement.classList.add('menu__item-input')
+					menuListInputElement.value = userList[i]
+					menuListTextElement.append(menuListInputElement)
+
+					menuListButtonElement.classList.add('hide')
+
+					const menuListDeleteButtonElement = document.createElement('button')
+					menuListDeleteButtonElement.classList.add('menu__item-delete-button')
+					menuListDeleteButtonElement.innerHTML = 'удалить'
+					menuListDeleteButtonElement.setAttribute('data-delete-button', userList[i])
+					menuListButtonWrapperElement.append(menuListDeleteButtonElement)
+
+					menuListDeleteButtonElement.addEventListener('click', function (event) {
+						event.preventDefault()
+						event.stopPropagation()
+						const deleteUser = this.getAttribute('data-delete-button')
+						console.log(deleteUser)
+						deleteUserFunc(deleteUser)
+					})
+
+					const menuListSaveButtonElement = document.createElement('button')
+					menuListSaveButtonElement.classList.add('menu__item-save-button')
+					menuListSaveButtonElement.innerHTML = 'сохранить'
+					menuListSaveButtonElement.setAttribute('data-save-button', userList[i])
+					menuListButtonWrapperElement.append(menuListSaveButtonElement)
+
+					menuListSaveButtonElement.addEventListener('click', function (event) {
+						event.preventDefault()
+						event.stopPropagation()
+						const currentUser = this.getAttribute('data-save-button')
+						// console.log(saveUser)
+						const newUserName = menuListInputElement.value
+						console.log(newUserName)
+						saveUserFunc(currentUser, newUserName)
+					})
+
+					menuListElement.removeEventListener('click', showUserOperations)
+				})
+			}
+		}
+	}
+
+	function saveUserFunc(currentUser, newUserName) {
+		const loggedUser = localStorage.getItem('bellaPlusLoggedUser')
+		if (loggedUser === currentUser) {
+			localStorage.setItem('bellaPlusLoggedUser', newUserName )
+		}
+		const data = JSON.parse(localStorage.getItem('bellaPlus'))
+		console.log(data)
+		for(let i=0; i<data.length; i++) {
+			if (data[i].user === currentUser) {
+				data[i].user = newUserName
+				localStorage.setItem('bellaPlus', JSON.stringify(data));
+			}
+		}
+		const userList = getUserList()
+		showUserList()
+	}
+
+	function deleteUserFunc(deleteUser) {
+		const loggedUser = localStorage.getItem('bellaPlusLoggedUser')
+		if (loggedUser === deleteUser) {
+			localStorage.removeItem('bellaPlusLoggedUser')
+			operationsListElement.innerHTML = ''
+		}
+		const data = JSON.parse(localStorage.getItem('bellaPlus'))
+		for(let i=0; i<data.length; i++) {
+			if (data[i].user === deleteUser) {
+				data.splice(i, 1)
+				localStorage.setItem('bellaPlus', JSON.stringify(data));
+			}
+		}
+		const userList = getUserList()
+		showUserList()
+	}
+
+	function showUserOperations(event) {
+		loggedUser = this.getAttribute('data-user')
+		const currentLoggedUser = localStorage.getItem('bellaPlusLoggedUser')
+		if (loggedUser !== currentLoggedUser) {
+			footerInfoElement.innerHTML = ''
+			footerInfoElement.classList.add('hide')
+		}
+		localStorage.setItem('bellaPlusLoggedUser', loggedUser);
+		menuElement.classList.add('hide')
+		operationsListElement.classList.remove('hide')
+		footerElement.classList.remove('hide')
+		operationsArray.length = 0
+		showLoggedUserName(loggedUser)
+		renderFromDB ()
+	}
 
 	function showLoggedUserName(loggedUser){
 		if(loggedUser){
@@ -178,9 +291,6 @@
 		total = 0
 		const data = JSON.parse(localStorage.getItem('bellaPlus'))
 		if (data && loggedUser) {
-			// for(let i=0; i<data.length; i++) {
-			// 	userList.push(data[i].user)
-			// }
 			for(let i=0; i<data.length; i++) {
 				if(data[i].user === loggedUser) {
 					const id = data[i].maxId
@@ -188,9 +298,9 @@
 					if(operationsArray){
 						for(let i=0; i<operationsArray.length; i++) {
 							addOperation(operationsArray[i])
-							countTotalSumm(operationsArray[i])
+							total = countTotalSumm(operationsArray[i], total)
 							addToCache(operationsArray[i])
-
+							totalElement.innerHTML = Math.round(total*10000)/10000
 						}
 						editHandler(operationsArray)
 					}
@@ -222,20 +332,20 @@
 			}
 		}
 		data.push(userData)
-		localStorage.setItem('bellaPlus', JSON.stringify(data));
+		localStorage.setItem('bellaPlus', JSON.stringify(data))
 		if(operationsArray){
 			operationsArray.length = 0
 		}
 	}
 
-	function countTotalSumm(operation) {
+	function countTotalSumm(operation, total) {
 		
 		if (operation.symbol === "+") {
 			total += (Math.round(operation.weight * 10000)) / 10000
 		} else {
 			total -= (Math.round((operation.weight + operation.weight*operation.percent/100)*10000))/10000
 		}
-		totalElement.innerHTML = Math.round(total*10000)/10000
+		return total
 	}
 
 	function addOperation(operation){
@@ -265,6 +375,29 @@
 		const operationElement = document.createElement('div')
 		operationElement.innerHTML = operationTemplate
 		operationsListElement.append(operationElement)
+
+		operationElement.addEventListener('click', function (event){
+			const currentOperation = this
+			const operationElement = currentOperation.querySelector('[data-change-operation]')
+			const operationId = parseInt(operationElement.getAttribute('data-change-operation'))
+			const data = JSON.parse(localStorage.getItem('bellaPlus'))
+			for(let i=0; i<data.length; i++) {
+				if(data[i].user === loggedUser) {
+					const operationsArray = data[i].data
+					let interimTotal = 0
+					for(let i=0; i<operationsArray.length; i++){
+						interimTotal = countTotalSumm(operationsArray[i], interimTotal) 
+						if(operationsArray[i].id === operationId) {
+							break
+						}
+					}
+					console.log(interimTotal)
+					footerInfoElement.innerHTML = `Промежуточный баланс: ${interimTotal}`
+					footerInfoElement.classList.remove('hide')
+				}
+			}
+
+		})
 	}
 
 	function editHandler(operationsArray) {
