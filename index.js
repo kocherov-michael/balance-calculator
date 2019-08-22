@@ -391,7 +391,7 @@
 							break
 						}
 					}
-					console.log(interimTotal)
+					interimTotal = Math.round(interimTotal*10000)/10000
 					footerInfoElement.innerHTML = `Промежуточный баланс: ${interimTotal}`
 					footerInfoElement.classList.remove('hide')
 				}
