@@ -470,6 +470,20 @@ input, button {
 .footer__text {
 	margin-right: 10px;
 }
+.common-profit {
+	display: flex;
+	color: #fff;
+	padding: 20px;
+	font-size: 24px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #a8a89c;
+	z-index: 10;
+}
+.common-profit__text {
+	margin-right: 10px;
+}
 .hide {
 	display: none;
 }

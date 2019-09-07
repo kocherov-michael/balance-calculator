@@ -13,6 +13,8 @@
 	const inputPercentElement = document.querySelectorAll("[data-input-percent]")
 	const totalElement = document.querySelector("[data-total]")
 	const weekTotalElement = document.querySelector("[data-week-total]")
+	const commonProfitElement = document.querySelector("[data-common-profit]")
+	const commonProfitResultElement = document.querySelector("[data-common-profit-result]")
 	const total = {}
 	let loggedUser = localStorage.getItem('bellaPlusLoggedUser')
 	const userList = getUserList()
@@ -89,16 +91,37 @@
 		menuElement.classList.toggle('hide')
 		showUserList()
 		addUser()
+
 		if(menuElement.classList.contains('hide')) {
 			showLoggedUserName(loggedUser)
 			operationsListElement.classList.remove('hide')
 			footerElement.classList.remove('hide')
+			commonProfitElement.classList.add('hide')
+		} else {
+			commonProfitElement.classList.remove('hide')
+			countCommonProfit ()
 		}
 	})
 
 	footerElement.addEventListener('click', () => {
 		inputWeightElement.focus()
 	})
+
+	function countCommonProfit () {
+		const data = JSON.parse(localStorage.getItem('bellaPlus'))
+		let profitSumm = 0
+		for ( elem of data ) {
+			if ( elem.data ) {
+				for ( operation of elem.data ) {
+					if ( operation.symbol === '-' && operation.percent !== 0 ) {
+						let obj = countTotalSumm(operation, false, profitSumm)
+						profitSumm = obj.weekTotal
+					}
+				}
+			}
+			commonProfitResultElement.innerHTML = Math.round(profitSumm*10000)/10000
+		}
+	}
 
 	function showUserList(){
 		const userList = getUserList()
@@ -186,7 +209,7 @@
 			localStorage.setItem('bellaPlusLoggedUser', newUserName )
 		}
 		const data = JSON.parse(localStorage.getItem('bellaPlus'))
-		console.log(data)
+		// console.log(data)
 		for(let i=0; i<data.length; i++) {
 			if (data[i].user === currentUser) {
 				data[i].user = newUserName
@@ -225,6 +248,7 @@
 		menuElement.classList.add('hide')
 		operationsListElement.classList.remove('hide')
 		footerElement.classList.remove('hide')
+		commonProfitElement.classList.add('hide')
 		operationsArray.length = 0
 		showLoggedUserName(loggedUser)
 		renderFromDB ()
@@ -301,9 +325,9 @@
 							addOperation(operationsArray[i])
 							const totalCommon = countTotalSumm(operationsArray[i], total.total, total.weekTotal)
 							total.total = totalCommon.total
-							total.weekTotal = totalCommon.weekTotal
-							// console.log(total.total)
-							// console.log(total.weekTotal)
+							if ( operationsArray[i].percent !== 0 ) {
+								total.weekTotal = totalCommon.weekTotal
+							}
 							addToCache(operationsArray[i])
 							totalElement.innerHTML = Math.round(total.total*10000)/10000
 							weekTotalElement.innerHTML = Math.round(total.weekTotal*10000)/10000
@@ -350,11 +374,15 @@
 	function countTotalSumm(operation, total, weekTotal) {
 		const commonTotal = {total: total, weekTotal: weekTotal}
 		if (operation.symbol === "+") {
-			commonTotal.total += (Math.round(operation.weight * 10000)) / 10000
+			if(total !== false) {
+				commonTotal.total += (Math.round(operation.weight * 10000)) / 10000
+			}
 		} else {
 			let minus = (Math.round((operation.weight + operation.weight*operation.percent/100)*10000))/10000
 			commonTotal.weekTotal -= minus
-			commonTotal.total -= minus
+			if(total !== false) {
+				commonTotal.total -= minus
+			}
 		}
 		return commonTotal
 	}
