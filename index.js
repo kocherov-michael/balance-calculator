@@ -129,7 +129,6 @@
 
 				inputNewUserElement.classList.remove('hide')
 				addUserButtonElement.classList.remove('hide')
-				//  // loggedUserNameElement.innerHTML = loggedUser
 				loggedUserNameElement.classList.add('hide')
 
 				menuListElement.addEventListener('click', showUserOperations)
@@ -303,9 +302,15 @@
 							const totalCommon = countTotalSumm(operationsArray[i], total.total, total.weekTotal)
 							total.total = totalCommon.total
 							total.weekTotal = totalCommon.weekTotal
+							console.log(total.total)
+							console.log(total.weekTotal)
 							addToCache(operationsArray[i])
 							totalElement.innerHTML = Math.round(total.total*10000)/10000
 							weekTotalElement.innerHTML = Math.round(total.weekTotal*10000)/10000
+						}
+						if (operationsArray.length === 0) {
+							totalElement.innerHTML = '0'
+							weekTotalElement.innerHTML = '0'
 						}
 						editHandler(operationsArray)
 					}
@@ -320,7 +325,6 @@
 	}
 
 	function addToDB(operationsArray,loggedUser) {
-		// const data = []
 		let data = JSON.parse(localStorage.getItem('bellaPlus'))
 		const userData = {
 			user: loggedUser,
@@ -406,12 +410,64 @@
 
 		})
 
-		// operationElement.addEventListener("touchmove", handleMove(event), false)
-	}
+		operationElement.addEventListener("touchmove", handleMove )
+		
+		const touchArray = []
+		let firstTapPosition = null
 
-	// function handleMove (event) {
-	// 	console.log(event)
-	// }
+		function handleMove (event) {
+			let touchPoint = event.changedTouches[0].pageX
+			if (!firstTapPosition) {
+				firstTapPosition = touchPoint
+			}
+			touchArray.push(touchPoint)
+
+			let difference = touchPoint - firstTapPosition
+			const innerDiv = this.querySelector('[data-string]')
+			const buttonEditElement = this.querySelector('[data-change-operation]')
+			const operationId = parseInt(buttonEditElement.getAttribute('data-change-operation'))
+			console.log(operationId)
+
+			if ( difference > 20) {
+				this.style.overflow = 'hidden'
+				innerDiv.style.marginLeft = (String(difference) + 'px')
+				innerDiv.style.marginRight = ('-' + String(difference) + 'px')
+				let diff = String(difference)
+
+				// Удаляем элемент операции
+				if ( difference > 200 ) {
+					innerDiv.style.opacity = '0'
+					let elemHeight = parseFloat(getComputedStyle(this, null).height.replace("px", ""))
+					this.style.height = `${elemHeight}px`
+
+					const hideOperation = setInterval( () => {
+						let height = parseInt(this.style.height.replace("px", ""))
+						height -= 1
+				        this.style.height = `${height}px`
+
+				        if (height <=0) {
+				        	clearInterval(hideOperation)
+				        	for(let i=0; i <operationsArray.length; i++) {
+								if (operationsArray[i].id === operationId) {
+									operationsArray.splice(i, 1)
+
+									addToDB(operationsArray, loggedUser)
+									renderFromDB ()
+								}
+							}
+				        }
+					}, 30)
+				}
+			}
+
+			operationElement.addEventListener("touchend", () => {
+				touchArray.length = 0
+				firstTapPosition = null
+				innerDiv.style.marginLeft = ''
+				innerDiv.style.marginRight = ''
+			})
+		}
+	}
 
 	function editHandler(operationsArray) {
 

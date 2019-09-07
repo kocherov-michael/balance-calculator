@@ -243,10 +243,13 @@ input, button {
 
 .main__string {
 	display: flex;
-	padding: 10px 20px;
-	border-bottom: 1px solid #7e7e6e;
+	height: 40px;
+	padding-left: 20px;
+	padding-right: 10px;
+	border: 1px solid #7e7e6e;
 	-webkit-justify-content: space-between;
 			justify-content: space-between;
+	align-items: center;
 }
 .main__string-item {
 	padding-left: 20px;
@@ -262,6 +265,7 @@ input, button {
 	color: #FFF;
 	border-style: none;
 	outline: none;
+	padding: 10px;
 }
 
 .checkbox {
