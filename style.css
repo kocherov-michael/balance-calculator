@@ -140,6 +140,7 @@ input, button {
 	font-size: 36px;
 	padding: 0 22px;
 	text-align: center;
+	border: 1px solid #7e7e6e;
 }
 
 .header__string {
@@ -174,6 +175,7 @@ input, button {
 	color: #FFF;
 	border-style: none;
 	outline: none;
+	border: 1px solid #7e7e6e;
 }
 
 .menu {
@@ -264,9 +266,9 @@ input, button {
 	color: #FFF;
 	border-style: none;
 	outline: none;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	align-self: stretch;
 	width: 99px;
+	border-left: 1px solid #7e7e6e;
 }
 
 .checkbox {
@@ -455,11 +457,15 @@ input, button {
 	padding: 20px 10px;
 	background-color: #CCD5C8;
 }
-.footer__total {
+.footer__total,
+.footer__week-total {
 	display: flex;
 	color: #fff;
-	padding: 20px;
+	padding: 10px 20px;
 	font-size: 24px;
+}
+.footer__week-total {
+	padding-top: 0;
 }
 .footer__text {
 	margin-right: 10px;

@@ -53,6 +53,7 @@
 						addToCache(operation)
 						addToDB(operationsArray, loggedUser)
 						renderFromDB ()
+						window.scrollTo(0, 999999)
 					}
 			} else {
 				buttonElement.innerHTML = '+'
@@ -75,7 +76,6 @@
 			}
 		}
 		const info = `Введено: ${inputValues.symbol}${inputValues.weight}`
-		// console.log(info)
 		footerInfoElement.innerHTML = info
 		footerInfoElement.classList.remove('hide')
 		inputWeightElement.value = ''
@@ -386,7 +386,6 @@
 		const operationElement = document.createElement('div')
 		operationElement.innerHTML = operationTemplate
 		operationsListElement.append(operationElement)
-		window.scrollTo(0, 999999)
 
 		operationElement.addEventListener('click', function (event){
 			const currentOperation = this
