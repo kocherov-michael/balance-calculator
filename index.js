@@ -392,21 +392,26 @@
 				if(data[i].user === loggedUser) {
 					const operationsArray = data[i].data
 					let interimTotal = 0
-					// let interimWeekTotal = 0
 					for(let i=0; i<operationsArray.length; i++){
-						interimTotal = countTotalSumm(operationsArray[i], interimTotal) 
+						interimTotal = countTotalSumm(operationsArray[i], interimTotal).total
 						if(operationsArray[i].id === operationId) {
 							break
 						}
 					}
 					interimTotal.total = Math.round(interimTotal.total*10000)/10000
-					footerInfoElement.innerHTML = `Промежуточный баланс: ${interimTotal.total}`
+					footerInfoElement.innerHTML = `Промежуточный баланс: ${interimTotal}`
 					footerInfoElement.classList.remove('hide')
 				}
 			}
 
 		})
+
+		// operationElement.addEventListener("touchmove", handleMove(event), false)
 	}
+
+	// function handleMove (event) {
+	// 	console.log(event)
+	// }
 
 	function editHandler(operationsArray) {
 
