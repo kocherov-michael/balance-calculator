@@ -12,7 +12,8 @@
 	const inputSymbolElement = document.querySelectorAll("[data-input-symbol]")
 	const inputPercentElement = document.querySelectorAll("[data-input-percent]")
 	const totalElement = document.querySelector("[data-total]")
-	let total
+	const weekTotalElement = document.querySelector("[data-week-total]")
+	const total = {}
 	let loggedUser = localStorage.getItem('bellaPlusLoggedUser')
 	const userList = getUserList()
 	const cache = []
@@ -288,7 +289,8 @@
 
 	function renderFromDB () {
 		operationsListElement.innerHTML = ''
-		total = 0
+		total.total = 0
+		total.weekTotal = 0
 		const data = JSON.parse(localStorage.getItem('bellaPlus'))
 		if (data && loggedUser) {
 			for(let i=0; i<data.length; i++) {
@@ -298,9 +300,12 @@
 					if(operationsArray){
 						for(let i=0; i<operationsArray.length; i++) {
 							addOperation(operationsArray[i])
-							total = countTotalSumm(operationsArray[i], total)
+							const totalCommon = countTotalSumm(operationsArray[i], total.total, total.weekTotal)
+							total.total = totalCommon.total
+							total.weekTotal = totalCommon.weekTotal
 							addToCache(operationsArray[i])
-							totalElement.innerHTML = Math.round(total*10000)/10000
+							totalElement.innerHTML = Math.round(total.total*10000)/10000
+							weekTotalElement.innerHTML = Math.round(total.weekTotal*10000)/10000
 						}
 						editHandler(operationsArray)
 					}
@@ -338,14 +343,16 @@
 		}
 	}
 
-	function countTotalSumm(operation, total) {
-		
+	function countTotalSumm(operation, total, weekTotal) {
+		const commonTotal = {total: total, weekTotal: weekTotal}
 		if (operation.symbol === "+") {
-			total += (Math.round(operation.weight * 10000)) / 10000
+			commonTotal.total += (Math.round(operation.weight * 10000)) / 10000
 		} else {
-			total -= (Math.round((operation.weight + operation.weight*operation.percent/100)*10000))/10000
+			let minus = (Math.round((operation.weight + operation.weight*operation.percent/100)*10000))/10000
+			commonTotal.weekTotal -= minus
+			commonTotal.total -= minus
 		}
-		return total
+		return commonTotal
 	}
 
 	function addOperation(operation){
@@ -385,14 +392,15 @@
 				if(data[i].user === loggedUser) {
 					const operationsArray = data[i].data
 					let interimTotal = 0
+					// let interimWeekTotal = 0
 					for(let i=0; i<operationsArray.length; i++){
 						interimTotal = countTotalSumm(operationsArray[i], interimTotal) 
 						if(operationsArray[i].id === operationId) {
 							break
 						}
 					}
-					interimTotal = Math.round(interimTotal*10000)/10000
-					footerInfoElement.innerHTML = `Промежуточный баланс: ${interimTotal}`
+					interimTotal.total = Math.round(interimTotal.total*10000)/10000
+					footerInfoElement.innerHTML = `Промежуточный баланс: ${interimTotal.total}`
 					footerInfoElement.classList.remove('hide')
 				}
 			}
