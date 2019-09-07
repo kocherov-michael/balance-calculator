@@ -245,7 +245,6 @@ input, button {
 	display: flex;
 	height: 40px;
 	padding-left: 20px;
-	padding-right: 10px;
 	border: 1px solid #7e7e6e;
 	-webkit-justify-content: space-between;
 			justify-content: space-between;
@@ -265,7 +264,9 @@ input, button {
 	color: #FFF;
 	border-style: none;
 	outline: none;
-	padding: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 99px;
 }
 
 .checkbox {
@@ -376,7 +377,7 @@ input, button {
 	font-size: 22px;
 	left: 20px;
 	line-height: 1;
-	top: 7px;
+	/*top: 7px;*/
 }
 .main__string_color_plus {
 	background-color: #67CA3C1a;

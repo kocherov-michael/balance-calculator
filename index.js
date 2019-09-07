@@ -75,7 +75,7 @@
 			}
 		}
 		const info = `Введено: ${inputValues.symbol}${inputValues.weight}`
-		console.log(info)
+		// console.log(info)
 		footerInfoElement.innerHTML = info
 		footerInfoElement.classList.remove('hide')
 		inputWeightElement.value = ''
@@ -302,8 +302,8 @@
 							const totalCommon = countTotalSumm(operationsArray[i], total.total, total.weekTotal)
 							total.total = totalCommon.total
 							total.weekTotal = totalCommon.weekTotal
-							console.log(total.total)
-							console.log(total.weekTotal)
+							// console.log(total.total)
+							// console.log(total.weekTotal)
 							addToCache(operationsArray[i])
 							totalElement.innerHTML = Math.round(total.total*10000)/10000
 							weekTotalElement.innerHTML = Math.round(total.weekTotal*10000)/10000
@@ -386,6 +386,7 @@
 		const operationElement = document.createElement('div')
 		operationElement.innerHTML = operationTemplate
 		operationsListElement.append(operationElement)
+		window.scrollTo(0, 999999)
 
 		operationElement.addEventListener('click', function (event){
 			const currentOperation = this
@@ -456,7 +457,7 @@
 								}
 							}
 				        }
-					}, 30)
+					}, 10)
 				}
 			}
 
