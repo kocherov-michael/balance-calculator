@@ -56,6 +56,10 @@
 						addToDB(operationsArray, loggedUser)
 						renderFromDB ()
 						window.scrollTo(0, 999999)
+
+						const info = `Введено: ${inputValues.symbol}${inputValues.weight}`
+						footerInfoElement.innerHTML = info
+						footerInfoElement.classList.remove('hide')
 					}
 			} else {
 				buttonElement.innerHTML = '+'
@@ -77,9 +81,7 @@
 				}
 			}
 		}
-		const info = `Введено: ${inputValues.symbol}${inputValues.weight}`
-		footerInfoElement.innerHTML = info
-		footerInfoElement.classList.remove('hide')
+		
 		inputWeightElement.value = ''
 		inputWeightElement.focus()
 	})
