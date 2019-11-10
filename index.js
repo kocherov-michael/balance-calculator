@@ -50,8 +50,10 @@
 							id:id,
 							symbol: inputValues.symbol,
 							weight: inputValues.weight,
-							percent: inputValues.percent
+							percent: inputValues.percent,
+							weigthWithPercent: countWeightWithPercent(inputValues.weight, inputValues.percent)
 						}
+						console.log(operation)
 						addToCache(operation)
 						addToDB(operationsArray, loggedUser)
 						renderFromDB ()
@@ -108,6 +110,11 @@
 	footerElement.addEventListener('click', () => {
 		inputWeightElement.focus()
 	})
+
+	// Считаем вес сдачи с процентом для отображения в операции с 4 знаками после запятой
+	function countWeightWithPercent (weigth, percent) {
+		return (Math.round((weigth + (weigth * percent) / 100) * 10000)) / 10000
+	}
 
 	function countCommonProfit () {
 		const data = JSON.parse(localStorage.getItem('bellaPlus'))
@@ -396,11 +403,18 @@
 			operationClass = 'main__string_color_plus'
 			percentTemplate = ''
 		} else {
+			// Если вес с процентом не был посчитан в старых операциях, то отображаем пустую строку
+			operation.weigthWithPercent = operation.weigthWithPercent || ''
+			// Также не отображаем знак равно
+			const equal = operation.weigthWithPercent ? '=' : ''
 			operationClass = 'main__string_color_minus'
 			percentTemplate =
 			`<div class="main__string-item">
-				<span data-percent>${operation.percent}</span>
-				<span>%</span>
+				<span data-percent>+ ${operation.percent}</span>
+				<span>% ${equal}</span>
+			</div>
+			<div class="main__string-item main__string-item_pl-5">
+				<span data-weight-with-percent>${operation.weigthWithPercent}</span>
 			</div>`
 		}
 
@@ -416,6 +430,7 @@
 		const operationElement = document.createElement('div')
 		operationElement.innerHTML = operationTemplate
 		operationsListElement.append(operationElement)
+		console.log(operation)
 
 		operationElement.addEventListener('click', function (event){
 			const currentOperation = this
