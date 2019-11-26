@@ -23,8 +23,8 @@
 	let edit = {status:false, id: null}
 	let id
 
-	console.log(getComputedStyle(document.querySelector('body')).width)
-	menuButtonElement.innerHTML = getComputedStyle(document.querySelector('body')).width
+	// console.log(getComputedStyle(document.querySelector('body')).width)
+	// menuButtonElement.innerHTML = getComputedStyle(document.querySelector('body')).width
 
 	operationsListElement.innerHTML = ""
 
