@@ -23,6 +23,9 @@
 	let edit = {status:false, id: null}
 	let id
 
+	console.log(getComputedStyle(document.querySelector('body')).width)
+	menuButtonElement.innerHTML = getComputedStyle(document.querySelector('body')).width
+
 	operationsListElement.innerHTML = ""
 
 	if (loggedUser) {
@@ -430,7 +433,7 @@
 		const operationElement = document.createElement('div')
 		operationElement.innerHTML = operationTemplate
 		operationsListElement.append(operationElement)
-		console.log(operation)
+		// console.log(operation)
 
 		operationElement.addEventListener('click', function (event){
 			const currentOperation = this
