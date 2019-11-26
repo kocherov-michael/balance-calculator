@@ -11,6 +11,40 @@
 <body>
 	<header class="header">
 		<form class="header__form">
+			<div class="header__string"></div>
+			<button class="header__menu-button" data-menu-button>menu</button>
+		</form>
+		<div class="currency">
+			<div class="metall">
+				<div class="metall__name">Серебро</div>
+				<div class="metall__type">
+					<div class="metall__string">
+						<div class="metall__string-text">цена на бирже :</div>
+						<div class="metall__string-value" data-silver-market></div>
+					</div>
+					<div class="metall__string">
+						<div class="metall__string-text">925 проба :</div>
+						<div class="metall__string-value" data-silver-sterling></div>
+					</div>
+				</div>
+			</div>
+			<div class="metall">
+				<div class="metall__name">Золото</div>
+				<div class="metall__type">
+					<div class="metall__string">
+						<div class="metall__string-text">цена на бирже :</div>
+						<div class="metall__string-value" data-gold-market></div>
+					</div>
+					<div class="metall__string">
+						<div class="metall__string-text">585 проба :</div>
+						<div class="metall__string-value" data-gold-sterling></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- <header class="header">
+		<form class="header__form">
 			<div class="header__string">
 				<div class="header__string-item hide" data-logged-user-name>Михаил</div>
 				<input type="text" class="header__input" placeholder="введите имя" data-input-new-user>
@@ -31,10 +65,10 @@
 		<div class="footer__info hide" data-footer-info></div>
 		<div class="footer__form">
 			<form class="form">
-				<div class="form__input">
+				<div class="form__input"> -->
 
 					<!-- checkbox +/- -->
-					<div class="form__input-symbol">
+					<!-- <div class="form__input-symbol">
 						<label class="checkbox form__checkbox" >
 							<input type="radio" name="symbol" class="checkbox__input-plus" value="+" checked data-input-symbol>
 							<div class="checkbox__new-input-plus"></div>
@@ -43,13 +77,13 @@
 							<input type="radio" name="symbol" class="checkbox__input-minus" value="-" data-input-symbol>
 							<div class="checkbox__new-input-minus"></div>
 						</label>
-					</div>
+					</div> -->
 					<!-- //checkbox +/- -->
-					<div class="form__numbers">
-						<input type="number" class="form__input-text" placeholder="вес" data-input-weight>
+					<!-- <div class="form__numbers">
+						<input type="number" class="form__input-text" placeholder="вес" data-input-weight> -->
 
 						<!-- checkbox % -->
-						<div class="form__input-percent">
+						<!-- <div class="form__input-percent">
 							<label class="checkbox checkbox_percent"> 0%
 								<input type="radio" name="percent" class="checkbox__input" value="0" checked data-input-percent>
 								<div class="checkbox__new-input"></div>
@@ -66,9 +100,9 @@
 								<input type="radio" name="percent" class="checkbox__input" value="7" data-input-percent>
 								<div class="checkbox__new-input"></div>
 							</label>
-						</div>
+						</div> -->
 						<!-- //checkbox % -->
-					</div>
+					<!-- </div>
 				</div>
 				<button type="submit" class="form__button" value="add" data-form-submit>+</button>
 			</form>
@@ -81,7 +115,7 @@
 			<div class="footer__text">Сдача:</div>
 			<div class="footer__result" data-week-total></div>
 		</div>
-	</footer>
+	</footer> -->
 <script src="index.js"></script>
 </body>
 </html>
