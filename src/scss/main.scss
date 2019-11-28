@@ -1,79 +1,11 @@
 @import "utils/vars";
+@import "base/base";
+@import "base/header";
+@import "base/footer";
+@import "sections/start";
+@import "sections/item";
 
-h1 {
-	color: green;
-}
-h2 {
-	color: green;
-}
-h3 {
-	color: $warning-color;
-}
-.header {
-	// background-color: red;
-}
-img {
-	height: 200px;
-}
-.header__menu-button {
-	padding: 15px;
-}
 
-.metall {
-	display: flex;
-	padding: 10px;
-	// border-bottom: 1px solid grey;
-	background-color: #fff;
-}
-.metall__icon {
-	// width: 60px;
-	align-self: center;
-	font-size: 40px;
-	font-weight: bold;
-	border-radius: .2em;
-	padding: .5em;
-	line-height: 1;
-	color: #fff;
-	background-color: #80AFCD;
-	&_color_gold {
-		background-color: #E8AA00;
-	}
-}
-.metall__type {
-	margin-left: 20px;
-	border: 1px solid red;
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-}
-.metall__string {
-	display: flex;
-	flex: 1;
-	align-items: center;
-	// justify-content: space-between;
-}
-.metall__string:first-child {
-	// margin-bottom: 10px;
-	border-bottom: 1px solid #E3E3E3;
-}
-.metall__string-text {
-	min-width: 125px;
-	flex: 1;
-}
-.metall__nominal {
-	margin-left: .2em;
-}
-.metall__change {
-	width: 0;
-	height: 0;
-	border-top: 10px;
-	margin: .3em;
-	border-left: .5em solid transparent;
-	border-right: .5em solid transparent;
-	&_increase {
-		border-bottom: .8em solid #83BF07;
-	}
-	&_decrease {
-		border-top: .8em solid #FF7062;
-	}
-}
+
+
+

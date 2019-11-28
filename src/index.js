@@ -571,8 +571,8 @@
 // import './js/common'
 // import './css/main.css'
 import './scss/main.scss'
-// setCurrencyValue()
-getCurrency(dataHandler)
+
+// getCurrency(dataHandler)
 
 function calcPrice(metall, usd) {
 	return Math.round(metall * usd * 1000000000 / 311034768) / 100
