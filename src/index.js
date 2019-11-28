@@ -568,6 +568,9 @@
 
 // })()
 
+// import './js/common'
+// import './css/main.css'
+import './scss/main.scss'
 // setCurrencyValue()
 getCurrency(dataHandler)
 
@@ -580,12 +583,34 @@ function setCurrencyValue (silver, gold) {
 	const silverSterlingElement = document.querySelector('[data-silver-sterling]')
 	const goldMarketElement = document.querySelector('[data-gold-market]')
 	const goldSterlingElement = document.querySelector('[data-gold-sterling]')
-
+	
 	silverMarketElement.textContent = silver
 	goldMarketElement.textContent = gold
 	silverSterlingElement.textContent = Math.round(silver * 100 * 925 / 1000) / 100
 	goldSterlingElement.textContent = Math.round(gold * 100 * 585 / 1000) / 100
 }
+
+// паказываем падает или растёт металл
+function showCurrencyChange (silver, gold) {
+	const silverChangeElement = document.querySelector('[data-silver-change]')
+	const goldChangeElement = document.querySelector('[data-gold-change]')
+
+	changeMetallClass(silver, silverChangeElement)
+	changeMetallClass(gold, goldChangeElement)
+	
+}
+
+// изменяет стрелочки зелёная или красная
+function changeMetallClass (metall, elem) {
+	if (metall > 0) {
+		elem.classList.remove('metall__change_decrease')
+		elem.classList.add('metall__change_increase')
+	} else {
+		elem.classList.remove('metall__change_increase')
+		elem.classList.add('metall__change_decrease')
+	}
+}
+
 function getCurrency (callback) {
 // данные взяты с https://partners.ifxdeal.com/ru/quotes_description.php/
 fetch('https://quotes.instaforex.com/api/quotesTick?m=json&q=silver,gold,usdrub')
@@ -608,4 +633,10 @@ function dataHandler (data) {
 	const silver = calcPrice(usdPerSilverUncia, rubPerUsd)
 	const gold = calcPrice(usdPerGoldUncia, rubPerUsd)
 	setCurrencyValue(silver, gold)
+	showCurrencyChange (data[0].change, data[1].change)
 }
+
+import Page from './js/Page'
+const page = new Page({
+	start: 'fromIndex'
+})

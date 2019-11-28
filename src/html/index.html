@@ -4,9 +4,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Balance calculator</title>
-	<link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic-ext" rel="stylesheet">
-	<link rel="shortcut icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+	<!-- <link rel="stylesheet" href="style.css"> -->
+	<!-- <link rel="stylesheet" href="./assets/css/app.css"> -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic-ext" rel="stylesheet"> -->
+	<link rel="shortcut icon" type="image/png" href="favicon.png" sizes="16x16">
 </head>
 <body>
 	<header class="header">
@@ -16,28 +17,36 @@
 		</form>
 		<div class="currency">
 			<div class="metall">
-				<div class="metall__name">Серебро</div>
+				<div class="metall__icon">Ag</div>
 				<div class="metall__type">
 					<div class="metall__string">
-						<div class="metall__string-text">цена на бирже :</div>
-						<div class="metall__string-value" data-silver-market></div>
+						<span class="metall__string-text">ММВБ :</span>
+						<span class="metall__string-value" data-silver-market></span>
+						<span class="metall__nominal">₽/г</span>
+						<div class="metall__change" data-silver-change></div>
 					</div>
 					<div class="metall__string">
 						<div class="metall__string-text">925 проба :</div>
 						<div class="metall__string-value" data-silver-sterling></div>
+						<span class="metall__nominal">₽/г</span>
+						<div class="metall__change"></div>
 					</div>
 				</div>
 			</div>
 			<div class="metall">
-				<div class="metall__name">Золото</div>
+				<div class="metall__icon metall__icon_color_gold">Au</div>
 				<div class="metall__type">
 					<div class="metall__string">
-						<div class="metall__string-text">цена на бирже :</div>
+						<div class="metall__string-text">ММВБ :</div>
 						<div class="metall__string-value" data-gold-market></div>
+						<span class="metall__nominal">₽/г</span>
+						<div class="metall__change" data-gold-change></div>
 					</div>
 					<div class="metall__string">
 						<div class="metall__string-text">585 проба :</div>
 						<div class="metall__string-value" data-gold-sterling></div>
+						<span class="metall__nominal">₽/г</span>
+						<div class="metall__change"></div>
 					</div>
 				</div>
 			</div>
@@ -116,6 +125,7 @@
 			<div class="footer__result" data-week-total></div>
 		</div>
 	</footer> -->
-<script src="index.js"></script>
+<!-- <script src="index.js"></script> -->
+<!-- <script src="./assets/js/app.js"></script> -->
 </body>
 </html>
