@@ -479,7 +479,7 @@ input, button {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	background-color: rgb(255, 153, 102);
+	background-color: #a8a89c;
 	z-index: 10;
 }
 .common-profit__text {
@@ -487,35 +487,4 @@ input, button {
 }
 .hide {
 	display: none;
-}
-
-
-/* ========================================================== */
-
-.header__menu-button {
-	padding: 15px;
-}
-
-.metall {
-	display: flex;
-	padding: 10px;
-	border-bottom: 1px solid grey;
-	background-color: rgb(255, 153, 102);
-}
-.metall__name {
-	width: 60px;
-	align-self: center;
-}
-.metall__type {
-	margin-left: 20px;
-}
-.metall__string {
-	display: flex;
-	
-}
-.metall__string:first-child {
-	margin-bottom: 10px;
-}
-.metall__string-text {
-	min-width: 125px;
 }
