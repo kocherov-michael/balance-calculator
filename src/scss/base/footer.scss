@@ -1,0 +1,20 @@
+.footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	min-height: 65px;
+	padding: 24px;
+	display: flex;
+	background-color: $neutral-primary;
+	box-shadow: $shadow-section;
+	color: $default-color;
+	font-size: 18px;
+}
+.footer__text{
+	flex: 1;
+}
+
+.footer__nominal {
+	margin-left: 6px;
+}

@@ -1,0 +1,78 @@
+.currency {
+	padding: 24px;
+	// padding-right: 24px;
+}
+.metall {
+	display: flex;
+	// padding-top: 22px;
+	// padding: 10px;
+	// border-bottom: 1px solid grey;
+	background-color: #fff;
+	// align-content: center;
+}
+.metall:first-child {
+	padding-bottom: 24px;
+}
+.metall__icon {
+	flex-shrink: 0;
+	display: flex;
+	width: 80px;
+	height: 80px;
+	justify-content: center;
+	align-items: center;
+	font-size: 36px;
+	font-weight: bold;
+	border-radius: 10px;
+	line-height: 1;
+	color: #fff;
+	background-color: #80AECD;
+
+	&_color_gold {
+		background-color: #E8AA00;
+	}
+}
+.metall__type {
+	margin-left: 20px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+.metall__string {
+	display: flex;
+	flex: 1;
+	align-items: center;
+	letter-spacing: .7px;
+}
+.metall__string:first-child {
+	border-bottom: 2px solid $border-base;
+}
+.metall__string-text {
+	min-width: 125px;
+	flex: 1;
+}
+.metall__nominal {
+	margin-left: 5px;
+	letter-spacing: 1px;
+	flex-shrink: 0;
+}
+.metall__change {
+	width: 0;
+	height: 0;
+	border-top: 10px;
+	margin: 5px;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	&_increase {
+		border-bottom: 14px solid $success-color;
+	}
+	&_decrease {
+		border-top: 14px solid $danger-color;
+	}
+}
+
+.workers {
+	
+	background-color: #EFF2F5;
+	min-height: 100vh;
+	padding: 285px 24px 90px;
+}
